@@ -6759,7 +6759,7 @@ msgstr "Mostrar Botão Texto"
 #: includes/shortcodes/class-app-shortcode-service-providers.php:36
 #: includes/shortcodes/class-app-shortcode-services.php:32
 #: includes/shortcodes/class-app-shortcode-services.php:34
-msgid "Show available times"
+msgid "Filter"
 msgstr "Mostrar as horas disponíveis"
 
 #: includes/shortcodes/class-app-shortcode-service-providers.php:37

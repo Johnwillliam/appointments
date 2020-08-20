@@ -518,7 +518,7 @@ function appointments_monthly_calendar( $timestamp = false, $args = array() ) {
 		'worker_id' => 0,
 		'location_id' => 0,
 		'class' => '',
-		'long' => false,
+		'long' => true,
 		'echo' => true,
 		'widget' => false,
 		'hide_today_times' => false,
@@ -637,10 +637,8 @@ function appointments_monthly_calendar( $timestamp = false, $args = array() ) {
 						<td class="no-right-border" colspan="<?php echo ( 6 + $last - $start_of_week ); ?>">&nbsp;</td>
 					</tr>
 				<?php endif; ?>
-
 				<?php do_action( 'appointments_monthly_schedule_after_last_row', '' ); ?>
 			</tbody>
-			<?php echo _appointments_get_table_meta_row_monthly( 'tfoot', $args['long'] ); ?>
 		</table>
 		<?php do_action( 'appointments_monthly_schedule_after_table', '' ); ?>
 	</div>
@@ -689,7 +687,7 @@ function appointments_weekly_calendar( $date = false, $args = array() ) {
 		'workers'     => array(),
 		'location_id' => 0,
 		'class'       => '',
-		'long'        => false,
+		'long'        => true,
 		'echo'        => true,
 	);
 	$args         = wp_parse_args( $args, $defaults );
@@ -848,7 +846,7 @@ function appointments_weekly_calendar( $date = false, $args = array() ) {
 /**
  * @internal
  */
-function _appointments_get_table_meta_row( $the_week, $long = false ) {
+function _appointments_get_table_meta_row( $the_week, $long = true ) {
 	$appointments = appointments();
 	if ( $long ) {
 		$days = $appointments->get_day_names();

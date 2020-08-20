@@ -729,7 +729,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 		function get_preset( $class, $set ) {
 			$presets = array(
 			1 => array(
-				'free' => '48c048',
+				'free' => '449e74',
 				'busy' => 'ffffff',
 				'notpossible' => 'ffffff',
 			),
@@ -1017,7 +1017,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 				}
 
 				$ret .= '<div class="app_timetable_cell app_timetable_cell-' . date( 'H-i', $row['ccs'] ) . '  '.$row['class'].'" title="'.esc_attr( $row['title'] ).'">'.
-			        $row['hours']. '<input type="hidden" class="appointments_take_appointment" value="' . $this->pack( $row['ccs'], $row['cce'] ) . '" />';
+				date( 'H:i', $row['ccs'] ). '<input type="hidden" class="appointments_take_appointment" value="' . $this->pack( $row['ccs'], $row['cce'] ) . '" />';
 
 				$ret .= '</div>';
 			}
@@ -1246,7 +1246,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 	 *
 	 * @deprecated since 2.1
 	 */
-		function get_weekly_calendar( $timestamp = false, $class = '', $long = false ) {
+		function get_weekly_calendar( $timestamp = false, $class = '', $long = true ) {
 			_deprecated_function( __FUNCTION__, '2.1', 'appointments_weekly_calendar' );
 			$this->get_lsw();
 
@@ -1270,7 +1270,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 
 		function get_short_day_names() {
 			global $wp_locale;
-			return array_values( $wp_locale->weekday_initial );
+			return array_values( $wp_locale->weekday_abbrev );
 		}
 
 		/**
@@ -1797,6 +1797,8 @@ if ( ! class_exists( 'Appointments' ) ) {
 			wp_enqueue_script( 'jquery-tablesorter', $this->plugin_url . '/js/jquery.tablesorter.min.js', array( 'jquery' ), $this->version );
 			add_action( 'wp_footer', array( &$this, 'wp_footer' ) );	// Publish plugin specific scripts in the footer
 
+			wp_enqueue_script( 'bootstrap-bundle-min', $this->plugin_url . '/js/bootstrap.bundle.min.js', array( 'jquery' ));
+
 			// TODO: consider this
 			wp_enqueue_script( 'app-js-check', $this->plugin_url . '/js/js-check.js', array( 'jquery' ), $this->version );
 
@@ -1922,7 +1924,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 		function localization() {
 			// Load up the localization file if we're using WordPress in a different language
 			// Place it in Appointments+'s "languages" folder and name it "appointments-[value in wp-config].mo"
-			load_plugin_textdomain( 'appointments', false, '/appointments/languages/' );
+			load_plugin_textdomain( 'appointments', false, '/appointments-master/languages/' );
 		}
 
 		/**
@@ -2254,7 +2256,7 @@ if ( ! class_exists( 'Appointments' ) ) {
 			'April' => '04',
 			'May' => '05',
 			'June' => '06',
-						'July' => '07',
+			'July' => '07',
 			'August' => '08',
 			'September' => '09',
 			'October' => '10',

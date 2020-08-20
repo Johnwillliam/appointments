@@ -101,7 +101,7 @@ class App_Shortcode_ServiceProviders extends App_Shortcode {
 
 	public function process_shortcode ($args=array(), $content='') {
 		extract(wp_parse_args($args, $this->_defaults_to_args()));
-		$args = wp_parse_args( $args, $this->_defaults_to_args() );
+
 		if (!empty($require_service) && empty($service) && empty($_REQUEST['app_service_id'])) return $content;
 
 		global $wpdb, $appointments;
@@ -122,50 +122,57 @@ class App_Shortcode_ServiceProviders extends App_Shortcode {
 
 		$workers = apply_filters( 'app_workers', $workers );
 
-		$selected_worker = 0;
-		if ( isset( $_REQUEST['app_provider_id'] ) && appointments_get_service( $_REQUEST['app_provider_id'] ) ) {
-			$selected_worker = absint( $_REQUEST['app_provider_id'] );
-		} elseif ( $args['worker'] && appointments_get_worker( $args['worker'] ) ) {
-			$selected_worker = $workers[0]->ID;
-		}
-
-		$selected_worker = apply_filters( 'appointments_services_shortcode_selected_worker', $selected_worker, $args, $workers );
-
-
 		// If there are no workers do nothing
 		if ( !$workers || empty( $workers) )
 			return;
 
-			ob_start();
-			?>
-			<div class="app_workers">
-				<div class="card">
-					<div class="card-body">
-						<div class="app_workers_dropdown">
-							<div class="app_workers_dropdown_title" id="app_workers_dropdown_title">
-								<?php echo $args['select']; ?>
-							</div>
-							<div class="app_workers_dropdown_select">
-								<select id="app_select_workers" name="app_select_workers" class="app_select_workers">
-									<?php
-									foreach ( $workers as $worker ) {
-										if ( 0 === $selected_worker ) {
-											$selected_worker = $worker->ID;
-										}
-									?>
-								<option value="<?php echo $worker->ID; ?>" <?php selected( $worker->ID, $selected_worker ); ?>><?php echo stripslashes( appointments_get_worker_name( $worker->ID ) ); ?></option>
-								<?php } ?>
-								</select>
-								<button type="button" class="btn btn-secondary app_workers_button"><?php echo esc_attr( $args['show'] ); ?></button>
-							</div>
-						</div>
-					</div>	
-				</div>
-			</div>
-			<?php
-	
-			$s = ob_get_clean();
+		$script ='';
+		$s = $e = '';
 
+		$s .= '<div class="app_workers">';
+		$s .= '<div class="app_workers_dropdown">';
+		$s .= '<div class="app_workers_dropdown_title">';
+		$s .= $select;
+		$s .= '</div>';
+		$s .= '<div class="app_workers_dropdown_select">';
+		$s .= '<select name="app_select_workers" class="app_select_workers">';
+		// Do not show "Anyone" if there is only ONE provider
+		if ( 1 != count( $workers ) )
+			$s .= '<option value="0">'. $empty_option . '</option>';
+
+		foreach ( $workers as $worker ) {
+			$worker_description = '';
+			if ( $appointments->worker == $worker->ID || 1 == count( $workers ) ) {
+				$d = '';
+				$sel = ' selected="selected"';
+			}
+			else {
+				$d = ' style="display:none"';
+				$sel = '';
+			}
+			$s .= '<option value="'.$worker->ID.'"'.$sel.'>'. appointments_get_worker_name( $worker->ID )  . '</option>';
+			// Include excerpts
+			$e .= '<div '.$d.' class="app_worker_excerpt" id="app_worker_excerpt_'.$worker->ID.'" >';
+			// Let addons modify worker bio page
+			$page = apply_filters( 'app_worker_page', $worker->page, $worker->ID );
+			switch ( $description ) {
+				case 'none'		:		break;
+				case 'excerpt'	:		$worker_description .= $appointments->get_excerpt( $page, $thumb_size, $thumb_class, $worker->ID ); break;
+				case 'content'	:		$worker_description .= $appointments->get_content( $page, $thumb_size, $thumb_class, $worker->ID ); break;
+				default			:		$worker_description .= $appointments->get_excerpt( $page, $thumb_size, $thumb_class, $worker->ID ); break;
+			}
+			$e .= apply_filters('app-workers-worker_description', $worker_description, $worker, $description) . '</div>';
+		}
+
+		$s .= '</select>';
+		$s .= '<input type="button" class="app_workers_button" value="'.$show.'">';
+		$s .= '</div>';
+		$s .= '</div>';
+		$s .= '<div class="app_worker_excerpts">';
+		$s .= $e;
+		$s .= '</div>';
+
+		$s .= '</div>';
 		if ( isset( $_GET['wcalendar'] ) && (int)$_GET['wcalendar'] )
 			$wcalendar = (int)$_GET['wcalendar'];
 		else

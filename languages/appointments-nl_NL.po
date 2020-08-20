@@ -5,13 +5,15 @@ msgstr ""
 "Project-Id-Version: Appointments +\n"
 "Report-Msgid-Bugs-To: https://wpmudev.org\n"
 "POT-Creation-Date: 2019-01-15 11:19:54+00:00\n"
-"PO-Revision-Date: 2018-06-10 13:34:58+0000\n"
+"PO-Revision-Date: 2020-08-20 20:42+0200\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
 #: admin/admin-helpers.php:20
 msgid "Google Calendar Settings"
@@ -3253,15 +3255,15 @@ msgstr "U moet inloggen om een afspraak te maken."
 
 #: includes/class-app-ajax.php:980
 msgid "Service name: "
-msgstr "Naam dienst:"
+msgstr "Naam dienst: "
 
 #: includes/class-app-ajax.php:981
 msgid "Date and time: "
-msgstr "Datum en tijd:"
+msgstr "Datum en tijd: "
 
 #: includes/class-app-ajax.php:982
 msgid "Lasts (approx): "
-msgstr "Duur (schatting):"
+msgstr "Duur (schatting): "
 
 #: includes/class-app-ajax.php:982
 msgid "minutes"
@@ -3273,7 +3275,7 @@ msgstr "Prijs:"
 
 #: includes/class-app-ajax.php:989
 msgid "Service provider: "
-msgstr "Dienstverlener:"
+msgstr "Dienstverlener: "
 
 #: includes/class-app-ajax.php:1076
 msgid "Nothing to download!"
@@ -5684,7 +5686,7 @@ msgstr ""
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:13
 msgid "Please check the appointment details below and confirm:"
-msgstr "Controleer de afspraakdetails en bevestig:"
+msgstr "Bevestig uw afspraak:"
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:14
 msgid ""
@@ -5745,7 +5747,7 @@ msgstr "Naam label"
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:37
 msgid "Your name:"
-msgstr "Uw naam:"
+msgstr "Uw naam: "
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:38
 #: includes/shortcodes/class-app-shortcode-confirmation.php:44
@@ -5762,7 +5764,7 @@ msgstr "Email label"
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:43
 msgid "Your email:"
-msgstr "Uw e-mail:"
+msgstr "Uw e-mail: "
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:48
 msgid "Phone label"
@@ -5770,7 +5772,7 @@ msgstr "Telefoon label"
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:49
 msgid "Your phone:"
-msgstr "Uw telefoonnummer:"
+msgstr "Uw telefoonnummer: "
 
 #: includes/shortcodes/class-app-shortcode-confirmation.php:54
 msgid "Address label"
@@ -5901,7 +5903,7 @@ msgstr ""
 
 #: includes/shortcodes/class-app-shortcode-monthly-schedule.php:50
 msgid "Click a free day to apply for an appointment."
-msgstr "Klik op een beschikbare dag om een afspraak te maken. "
+msgstr "Klik op een beschikbare dag om een afspraak te maken."
 
 #: includes/shortcodes/class-app-shortcode-monthly-schedule.php:51
 #: includes/shortcodes/class-app-shortcode-schedule.php:40
@@ -6453,7 +6455,7 @@ msgstr "Toon knop tekst"
 #: includes/shortcodes/class-app-shortcode-services.php:32
 #: includes/shortcodes/class-app-shortcode-services.php:34
 msgid "Show available times"
-msgstr "Toon beschikbare tijden."
+msgstr "Toon beschikbare tijden"
 
 #: includes/shortcodes/class-app-shortcode-service-providers.php:37
 msgid ""

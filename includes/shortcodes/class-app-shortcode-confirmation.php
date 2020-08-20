@@ -16,8 +16,8 @@ class App_Shortcode_Confirmation extends App_Shortcode {
 			'button_text' => array(
 				'type' => 'text',
 				'name' => __( 'Button text', 'appointments' ),
-				'value' => __( 'Please click here to confirm this appointment', 'appointments' ),
-				'help' => __( 'Text of the button that asks client to confirm the appointment. Default: "Please click here to confirm this appointment"', 'appointments' ),
+				'value' => __( 'Confirm', 'appointments' ),
+				'help' => __( 'Text of the button that asks client to confirm the appointment. Default: "Confirm"', 'appointments' ),
 			),
 			'confirm_text' => array(
 				'type' => 'text',
@@ -139,79 +139,82 @@ class App_Shortcode_Confirmation extends App_Shortcode {
 		$gdpr_checkbox_show = 'yes' === $gdpr_checkbox_show;
 		ob_start();
 		?>
-		<div class="appointments-confirmation-wrapper">
-			<fieldset class="<?php echo esc_attr( $gdpr_checkbox_show? 'check-gdpr-agree':'' ); ?>">
-				<legend><?php echo $args['title']; ?></legend>
-				<div class="appointments-confirmation-service"></div>
-				<div class="appointments-confirmation-service_location" style="display:none"></div>
-				<div class="appointments-confirmation-worker" style="display:none"></div>
-				<div class="appointments-confirmation-worker_location" style="display:none"></div>
-				<div class="appointments-confirmation-start"></div>
-				<div class="appointments-confirmation-end"></div>
-				<div class="appointments-confirmation-price" style="display:none"></div>
+		<div id="appointments-confirmation-wrappermodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><?php echo $args['title']; ?></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					<fieldset class="<?php echo esc_attr( $gdpr_checkbox_show? 'check-gdpr-agree':'' ); ?>">
+						<div class="appointments-confirmation-service"></div>
+						<div class="appointments-confirmation-service_location" style="display:none"></div>
+						<div class="appointments-confirmation-worker" style="display:none"></div>
+						<div class="appointments-confirmation-worker_location" style="display:none"></div>
+						<div class="appointments-confirmation-start"></div>
+						<div class="appointments-confirmation-end"></div>
+						<div class="appointments-confirmation-price" style="display:none"></div>
 
-				<div class="appointments-name-field" style="display:none">
-					<label>
-						<span><?php echo $args['name']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-name-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-name_field_id', 'appointments-field-customer_name' ) ); ?>" value="<?php echo esc_attr( $n ); ?>" />
-					</label>
+						<form>
+							<div class="appointments-name-field form-group" style="display:none">
+								<label for="InputName"><?php echo $args['name']; ?> *</label>
+								<input type="Name" class="form-control appointments-name-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-name_field_id', 'appointments-field-customer_name' ) ); ?>" placeholder="Enter name">
+							</div>
+							<div class="appointments-email-field form-group" style="display:none">
+								<label for="InputEmail"><?php echo $args['email']; ?> *</label>
+								<input type="email" class="form-control appointments-email-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-email_field_id', 'appointments-field-customer_email' ) ); ?>" placeholder="Enter e-mail">
+							</div>
+							<div class="appointments-phone-field form-group" style="display:none">
+								<label for="InputPhone"><?php echo $args['phone']; ?> *</label>
+								<input type="Phone" class="appointments-phone-field-entry form-control" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-phone_field_id', 'appointments-field-customer_phone' ) ); ?>" placeholder="Enter phone number">
+							</div>
+							<div class="appointments-address-field form-group" style="display:none">
+								<label for="InputAdress"><?php echo $args['address']; ?> *</label>
+								<input type="address" class="appointments-address-field-entry form-control" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-address_field_id', 'appointments-field-customer_address' ) ); ?>" placeholder="Enter address">
+							</div>
+							<div class="appointments-city-field form-group" style="display:none">
+								<label for="InputCity"><?php echo $args['city']; ?> *</label>
+								<input type="city" class="appointments-city-field-entry form-control" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-city_field_id', 'appointments-field-customer_city' ) ); ?>" value="<?php echo esc_attr( $c ); ?>" placeholder="Enter city">
+							</div>
+							<div class="appointments-note-field form-group" style="display:none">
+								<label for="InputNote"><?php echo $args['note']; ?> *</label>
+								<input type="note" class="appointments-note-field-entry form-control" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-address_field_id', 'appointments-field-customer_address' ) ); ?>" placeholder="Enter address">
+							</div>
+							<div class="appointments-address-field form-group" style="display:none">
+								<label for="InputAdress"><?php echo $args['address']; ?> *</label>
+								<input type="address" class="appointments-address-field-entry form-control" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-note_field_id', 'appointments-field-customer_note' ) ); ?>" placeholder="Enter notes">
+							</div>
+							<div class="appointments-gcal-field form-group" style="display:none">
+								<label for="InputAdress"><?php echo $appointments->gcal_image; ?> <?php echo $args['gcal']; ?></label>
+								<input class="appointments-gcal-field-entry form-check-input" type="checkbox" value="<?php echo $gcal_checked; ?>" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-gcal_field_id', 'appointments-field-customer_gcal' ) ); ?>">							
+							</div>
+						</form>
+						<?php
+							$ret = ob_get_clean();
+							$ret = apply_filters( 'app_additional_fields', $ret );
+							ob_start();
+						?>
+						<div style="clear:both"></div>
+		<?php if ( $gdpr_checkbox_show ) { ?>
+						<div class="appointments-gdpr-confirmation">
+							<label data-alert="<?php echo esc_attr( appointments_get_option( 'gdpr_checkbox_alert' ) ); ?>">
+								<input type="checkbox" class="appointments-gdpr-agree" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-gdpr_field_id', 'appointments-field-gdpr-agree' ) ); ?>" /><b class="required">*</b>&nbsp;<?php echo appointments_get_option( 'gdpr_checkbox_text' ); ?>
+							</label>
+						</div>
+		<?php } ?>
+						
+					</fieldset>
+					</div>
+					<div class="modal-footer">
+							<input type="hidden" class="appointments-confirmation-final-value" />
+							<button type="button" class="btn btn-secondary appointments-confirmation-cancel-button"><?php echo esc_attr_x( 'Cancel', 'Drop current action', 'appointments' ); ?></button>
+							<button type="button" class="btn confirm-button-background appointments-confirmation-button"><?php echo esc_attr( $button_text ); ?></button>
+      				</div>
 				</div>
-				<div class="appointments-email-field" style="display:none">
-					<label>
-						<span><?php echo $args['email']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-email-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-email_field_id', 'appointments-field-customer_email' ) ); ?>" value="<?php echo esc_attr( $e ); ?>" />
-					</label>
-				</div>
-				<div class="appointments-phone-field" style="display:none">
-					<label>
-						<span><?php echo $args['phone']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-phone-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-phone_field_id', 'appointments-field-customer_phone' ) ); ?>" value="<?php echo esc_attr( $p ); ?>" />
-					</label>
-				</div>
-				<div class="appointments-address-field" style="display:none">
-					<label>
-						<span><?php echo $args['address']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-address-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-address_field_id', 'appointments-field-customer_address' ) ); ?>" value="<?php echo esc_attr( $a ); ?>" />
-					</label>
-				</div>
-				<div class="appointments-city-field" style="display:none">
-					<label>
-						<span><?php echo $args['city']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-city-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-city_field_id', 'appointments-field-customer_city' ) ); ?>" value="<?php echo esc_attr( $c ); ?>" />
-					</label>
-				</div>
-				<div class="appointments-note-field" style="display:none">
-					<label>
-						<span><?php echo $args['note']; ?><b class="required">*</b></span>
-						<input type="text" class="appointments-note-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-note_field_id', 'appointments-field-customer_note' ) ); ?>" />
-					</label>
-				</div>
-				<div class="appointments-gcal-field" style="display:none">
-					<label>
-						<span><?php echo $appointments->gcal_image; ?></span>
-						<input type="checkbox" class="appointments-gcal-field-entry" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-gcal_field_id', 'appointments-field-customer_gcal' ) ); ?>" <?php echo $gcal_checked; ?> />&nbsp;
-						<?php echo $args['gcal']; ?>
-					</label>
-				</div>
-				<?php
-					$ret = ob_get_clean();
-					$ret = apply_filters( 'app_additional_fields', $ret );
-					ob_start();
-				?>
-				<div style="clear:both"></div>
-<?php if ( $gdpr_checkbox_show ) { ?>
-				<div class="appointments-gdpr-confirmation">
-					<label data-alert="<?php echo esc_attr( appointments_get_option( 'gdpr_checkbox_alert' ) ); ?>">
-						<input type="checkbox" class="appointments-gdpr-agree" id="<?php echo esc_attr( apply_filters( 'app-shortcode-confirmation-gdpr_field_id', 'appointments-field-gdpr-agree' ) ); ?>" /><b class="required">*</b>&nbsp;<?php echo appointments_get_option( 'gdpr_checkbox_text' ); ?>
-					</label>
-				</div>
-<?php } ?>
-				<div class="appointments-confirmation-buttons">
-					<input type="hidden" class="appointments-confirmation-final-value" />
-					<input type="button" class="appointments-confirmation-button" value="<?php echo esc_attr( $button_text ); ?>" />
-					<input type="button" class="appointments-confirmation-cancel-button" value="<?php echo esc_attr_x( 'Cancel', 'Drop current action', 'appointments' ); ?>" />
-				</div>
-			</fieldset>
+			</div>
 		</div>
 
 		<?php
@@ -221,6 +224,7 @@ class App_Shortcode_Confirmation extends App_Shortcode {
 
 		_appointments_enqueue_sweetalert();
 		wp_enqueue_script( 'app-shortcode-confirmation', appointments_plugin_url() . 'includes/shortcodes/js/app-confirmation.js', array( 'jquery', 'app-sweetalert' ) );
+		
 		$schema = is_ssl()? 'https':'http';
 		$i10n = array(
 			'waitingGif' => appointments_plugin_url() . 'images/waiting.gif',

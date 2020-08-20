@@ -5863,7 +5863,7 @@ msgstr ""
 #: includes/shortcodes/class-app-shortcode-service-providers.php:36
 #: includes/shortcodes/class-app-shortcode-services.php:32
 #: includes/shortcodes/class-app-shortcode-services.php:34
-msgid "Show available times"
+msgid "Filter"
 msgstr "Mutasd az elérhető időpontokat"
 
 #: includes/shortcodes/class-app-shortcode-service-providers.php:37

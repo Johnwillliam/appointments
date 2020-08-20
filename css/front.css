@@ -56,7 +56,6 @@ td.today {
 .appointments-list table {
     width: 100%;
     border-collapse: collapse;
-    /* table-layout:fixed; */
 }
 .appointments-list table th {
     width: 12%;
@@ -673,4 +672,10 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
         float: none;
         width: auto;
     }
+}
+
+.confirm-button-background {background-color:#449e74;}
+
+.appointments-list table td.free {
+    background-color:#449e74 !important;
 }

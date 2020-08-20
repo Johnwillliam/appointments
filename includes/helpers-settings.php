@@ -27,7 +27,7 @@ function appointments_get_default_options() {
 		'app_limit'					=> 365,
 		'clear_time'				=> 60,
 		'spam_time'					=> 0,
-		'auto_confirm'				=> 'no',
+		'auto_confirm'				=> 'yes',
 		'allow_worker_selection'	=> 'no',
 		'allow_worker_confirm'		=> 'no',
 		'allow_overwork'			=> 'no',

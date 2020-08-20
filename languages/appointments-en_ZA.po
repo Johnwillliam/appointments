@@ -6604,8 +6604,8 @@ msgstr "Show button Text"
 #: includes/shortcodes/class-app-shortcode-service-providers.php:36
 #: includes/shortcodes/class-app-shortcode-services.php:32
 #: includes/shortcodes/class-app-shortcode-services.php:34
-msgid "Show available times"
-msgstr "Show available times"
+msgid "Filter"
+msgstr "Filter"
 
 #: includes/shortcodes/class-app-shortcode-service-providers.php:37
 msgid ""

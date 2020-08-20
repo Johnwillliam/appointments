@@ -68,7 +68,7 @@ jQuery( document).ready( function( $ ) {
                     swal(AppShortcodeConfirmation.errorTitle, response.error, 'error');
                 }
                 else {
-                    $(".appointments-confirmation-wrapper").show();
+                    $("#appointments-confirmation-wrappermodal").modal("show");
                     $(".appointments-confirmation-service").html(response.service);
                     /**
                      * Service location

@@ -29,9 +29,9 @@ class App_Shortcode_Services extends App_Shortcode {
 			'show' => array(
 				'type' => 'text',
 				'name' => __( 'Show Button Text', 'appointments' ),
-				'value' => __( 'Show available times', 'appointments' ),
-				'help' => __( 'Button text to show the results for the selected. Default: "Show available times".', 'appointments' ),
-				'example' => __( 'Show available times', 'appointments' ),
+				'value' => __( 'Filter', 'appointments' ),
+				'help' => __( 'Button text to show the results for the selected. Default: "Filter".', 'appointments' ),
+				'example' => __( 'Filter', 'appointments' ),
 			),
 			'description' => array(
 				'type' => 'select',
@@ -137,23 +137,26 @@ class App_Shortcode_Services extends App_Shortcode {
 		ob_start();
 		?>
 		<div class="app_services">
-			<div class="app_services_dropdown">
-				<div class="app_services_dropdown_title" id="app_services_dropdown_title">
-					<?php echo $args['select']; ?>
-				</div>
-				<div class="app_services_dropdown_select">
-					<select id="app_select_services" name="app_select_services" class="app_select_services">
-<?php
-foreach ( $services as $service ) {
-	if ( 0 === $selected_service ) {
-		$selected_service = $service->ID;
-	}
-?>
-					<option value="<?php echo $service->ID; ?>" <?php selected( $service->ID, $selected_service ); ?>><?php echo stripslashes( $service->name ); ?></option>
-				<?php } ?>
-					</select>
-					<input type="button" class="app_services_button" value="<?php echo esc_attr( $args['show'] ); ?>">
-				</div>
+			<div class="card">
+				<div class="card-body">
+					<div class="app_services_dropdown">
+						<div class="app_services_dropdown_title" id="app_services_dropdown_title">
+							<?php echo $args['select']; ?>
+						</div>
+						<div class="app_services_dropdown_select">
+							<select id="app_select_services" name="app_select_services" class="app_select_services">
+								<?php
+								foreach ( $services as $service ) {
+									if ( 0 === $selected_service ) {
+										$selected_service = $service->ID;
+									}
+								?>
+							<option value="<?php echo $service->ID; ?>" <?php selected( $service->ID, $selected_service ); ?>><?php echo stripslashes( $service->name ); ?></option>
+						<?php } ?>
+							</select>
+						</div>
+					</div>
+				</div>	
 			</div>
 
 			<div class="app_service_excerpts">

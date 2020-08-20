@@ -541,8 +541,8 @@ _select_
 
 _show_
 
-*   Button text to show the results for the selected. Default: “Show available times”
-*   Example: [app_services show=”Show available times”]
+*   Button text to show the results for the selected. Default: “Filter”
+*   Example: [app_services show=”Filter”]
 
 _description_
 
@@ -613,8 +613,8 @@ _empty_option_
 _show_
 
 *   Button text to show the results for the selected.
-*   Default: “Show available times”
-*   Example: [app_service_providers show=”Show available times”]
+*   Default: “Filter”
+*   Example: [app_service_providers show=”Filter”]
 
 _description_
 
